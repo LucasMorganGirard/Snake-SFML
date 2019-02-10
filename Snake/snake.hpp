@@ -19,26 +19,36 @@ typedef enum {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    STOP
 } direction;
+
+typedef struct snakeBloc {
+    snakeBloc(sf::RectangleShape rect, direction direc):r(rect),d(direc){};
+    sf::RectangleShape r;
+    direction d;
+} snakeBloc;
 
 class Snake{
 public:
-    Snake(const int&, const int&);
-    std::vector<sf::RectangleShape>& drawSnake();
+    Snake(const int&, const int&, sf::RenderWindow&);
+    void drawSnake();
     const bool onCadriage() const;
     void move(Food&);
     void setDir(const direction);
     
 private:
-    std::vector<sf::RectangleShape> mSnakeBody;
+    std::vector<snakeBloc> mSnakeBody;
     unsigned mSize;
     const unsigned mCase;
-    direction mDirection;
     direction mTourner;
     bool mNeedNewRect;
     unsigned mLastX;
     unsigned mLastY;
+    sf::RenderWindow& mWin;
+    sf::Text mText;
+    sf::Font mFont;
+    unsigned short mScore;
 };
 
 #endif /* snake_hpp */

@@ -11,10 +11,7 @@
 		E19409C2220DA612007881DE /* snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E19409C0220DA612007881DE /* snake.cpp */; };
 		E1E68055220BE96B003D82EE /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1E68054220BE96B003D82EE /* ResourcePath.mm */; };
 		E1E68058220BE96B003D82EE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1E68057220BE96B003D82EE /* main.cpp */; };
-		E1E6805B220BE96B003D82EE /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1E6805A220BE96B003D82EE /* cute_image.jpg */; };
-		E1E6805D220BE96B003D82EE /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = E1E6805C220BE96B003D82EE /* nice_music.ogg */; };
 		E1E6805F220BE96B003D82EE /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1E6805E220BE96B003D82EE /* sansation.ttf */; };
-		E1E68061220BE96B003D82EE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1E68060220BE96B003D82EE /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,10 +24,7 @@
 		E1E68054220BE96B003D82EE /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		E1E68056220BE96B003D82EE /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		E1E68057220BE96B003D82EE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E1E6805A220BE96B003D82EE /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cute_image.jpg; sourceTree = "<group>"; };
-		E1E6805C220BE96B003D82EE /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		E1E6805E220BE96B003D82EE /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		E1E68060220BE96B003D82EE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +81,7 @@
 		E1E68059220BE96B003D82EE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E1E6805A220BE96B003D82EE /* cute_image.jpg */,
-				E1E6805C220BE96B003D82EE /* nice_music.ogg */,
 				E1E6805E220BE96B003D82EE /* sansation.ttf */,
-				E1E68060220BE96B003D82EE /* icon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -152,10 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1E68061220BE96B003D82EE /* icon.png in Resources */,
 				E1E6805F220BE96B003D82EE /* sansation.ttf in Resources */,
-				E1E6805D220BE96B003D82EE /* nice_music.ogg in Resources */,
-				E1E6805B220BE96B003D82EE /* cute_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +277,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7QKA9L7X44;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Snake/Snake-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -300,6 +289,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7QKA9L7X44;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Snake/Snake-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

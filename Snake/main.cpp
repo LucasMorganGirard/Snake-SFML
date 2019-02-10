@@ -27,10 +27,17 @@ int main(int, char const**)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window", sf::Style::None);
-
-    Snake sss(20,20);
+    Snake sss(20,20, window);
     Food plate;
     plate.setUpFood(2);
+    sf::VertexArray grille;
+    grille.setPrimitiveType(sf::Lines);
+    for(unsigned i = 20; i < 800; i+=20){
+        grille.append(sf::Vertex(sf::Vector2f(i,0), sf::Color(100,100,100)));
+        grille.append(sf::Vertex(sf::Vector2f(i,800), sf::Color(100,100,100)));
+        grille.append(sf::Vertex(sf::Vector2f(0,i), sf::Color(100,100,100)));
+        grille.append(sf::Vertex(sf::Vector2f(800,i), sf::Color(100,100,100)));
+    }
     
     // Start the game loop
     while (window.isOpen())
@@ -70,10 +77,8 @@ int main(int, char const**)
         for (sf::RectangleShape r1 : plate.drawFood()) {
             window.draw(r1);
         }
-        for (sf::RectangleShape r2 : sss.drawSnake()) {
-            window.draw(r2);
-        }
-        
+        sss.drawSnake();
+        window.draw(grille);
         // Update the window
         window.display();
     }
