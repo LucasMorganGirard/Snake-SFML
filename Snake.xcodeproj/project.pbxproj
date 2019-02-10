@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E19409BF220DA5F0007881DE /* food.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E19409BD220DA5F0007881DE /* food.cpp */; };
+		E19409C2220DA612007881DE /* snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E19409C0220DA612007881DE /* snake.cpp */; };
 		E1E68055220BE96B003D82EE /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1E68054220BE96B003D82EE /* ResourcePath.mm */; };
 		E1E68058220BE96B003D82EE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1E68057220BE96B003D82EE /* main.cpp */; };
 		E1E6805B220BE96B003D82EE /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1E6805A220BE96B003D82EE /* cute_image.jpg */; };
@@ -16,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E19409BD220DA5F0007881DE /* food.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = food.cpp; sourceTree = "<group>"; };
+		E19409BE220DA5F0007881DE /* food.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = food.hpp; sourceTree = "<group>"; };
+		E19409C0220DA612007881DE /* snake.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = snake.cpp; sourceTree = "<group>"; };
+		E19409C1220DA612007881DE /* snake.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = snake.hpp; sourceTree = "<group>"; };
 		E1E6804F220BE96B003D82EE /* Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E68053220BE96B003D82EE /* Snake-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Snake-Info.plist"; sourceTree = "<group>"; };
 		E1E68054220BE96B003D82EE /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -60,6 +66,10 @@
 				E1E68054220BE96B003D82EE /* ResourcePath.mm */,
 				E1E68056220BE96B003D82EE /* ResourcePath.hpp */,
 				E1E68057220BE96B003D82EE /* main.cpp */,
+				E19409BD220DA5F0007881DE /* food.cpp */,
+				E19409BE220DA5F0007881DE /* food.hpp */,
+				E19409C0220DA612007881DE /* snake.cpp */,
+				E19409C1220DA612007881DE /* snake.hpp */,
 				E1E68059220BE96B003D82EE /* Resources */,
 				E1E68052220BE96B003D82EE /* Supporting Files */,
 			);
@@ -176,8 +186,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E19409C2220DA612007881DE /* snake.cpp in Sources */,
 				E1E68058220BE96B003D82EE /* main.cpp in Sources */,
 				E1E68055220BE96B003D82EE /* ResourcePath.mm in Sources */,
+				E19409BF220DA5F0007881DE /* food.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
