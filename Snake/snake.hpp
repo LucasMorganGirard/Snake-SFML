@@ -31,11 +31,12 @@ typedef struct snakeBloc {
 
 class Snake{
 public:
-    Snake(const int&, const int&, sf::RenderWindow&);
+    Snake(sf::RenderWindow&);
     void drawSnake();
     const bool onCadriage() const;
-    void move(Food&);
+    const bool move(Food&);
     void setDir(const direction);
+    void setup();
     
 private:
     std::vector<snakeBloc> mSnakeBody;
@@ -47,7 +48,9 @@ private:
     unsigned mLastY;
     sf::RenderWindow& mWin;
     sf::Text mText;
+    sf::Text mDeath;
     sf::Font mFont;
+    unsigned short mOpacite;
     unsigned short mScore;
 };
 

@@ -27,7 +27,7 @@ int main(int, char const**)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window", sf::Style::None);
-    Snake sss(20,20, window);
+    Snake sss(window);
     Food plate;
     plate.setUpFood(2);
     sf::VertexArray grille;
@@ -38,6 +38,19 @@ int main(int, char const**)
         grille.append(sf::Vertex(sf::Vector2f(0,i), sf::Color(100,100,100)));
         grille.append(sf::Vertex(sf::Vector2f(800,i), sf::Color(100,100,100)));
     }
+    
+    sf::Font font;
+    if(!font.loadFromFile(resourcePath()+"sansation.ttf")){
+        return EXIT_FAILURE;
+    }
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(50);
+    text.setFillColor(sf::Color::Red);
+    text.setPosition(320, 300);
+    text.setString("PAUSE");
+    
+    bool pause=false;
     
     // Start the game loop
     while (window.isOpen())
@@ -69,11 +82,25 @@ int main(int, char const**)
                 sss.setDir(RIGHT);
             }
             
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) {
+                pause=!pause;
+            }
+            
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R) {
+                sss.setup();
+            }
+            
         }
 
         // Clear screen
         window.clear();
-        sss.move(plate);
+        if(!pause){
+            if(!sss.move(plate)){
+                sss.setup();
+            }
+        }else{
+            window.draw(text);
+        }
         for (sf::RectangleShape r1 : plate.drawFood()) {
             window.draw(r1);
         }

@@ -15,15 +15,10 @@
 
 #define snakeHead mSnakeBody[0]
 
-Snake::Snake(const int& x, const int& y, sf::RenderWindow& win)
-:mSize(1), mCase(20), mTourner(RIGHT), mNeedNewRect(true), mLastX(20), mLastY(20), mWin(win), mScore(0)
+Snake::Snake(sf::RenderWindow& win)
+:mSize(3), mCase(20), mTourner(RIGHT), mNeedNewRect(false), mLastX(0), mLastY(0), mWin(win), mScore(0)
 {
-    sf::RectangleShape tete;
-    tete.setSize(sf::Vector2f(mCase, mCase));
-    tete.setFillColor(sf::Color::White);
-    tete.setPosition(x, y);
-    snakeBloc s(tete,RIGHT);
-    mSnakeBody.push_back(s);
+    setup();
     
     if(!mFont.loadFromFile(resourcePath()+"sansation.ttf")){
         return EXIT_FAILURE;
@@ -32,7 +27,42 @@ Snake::Snake(const int& x, const int& y, sf::RenderWindow& win)
     mText.setCharacterSize(50);
     mText.setFillColor(sf::Color::Red);
     mText.setString(std::to_string(mScore));
+    
+    mOpacite=0;
+    mDeath.setFont(mFont);
+    mDeath.setCharacterSize(50);
+    mDeath.setFillColor(sf::Color(255,0,0,mOpacite));
+    mDeath.setString("YOU DIED");
+    mDeath.setPosition(270, 300);
 };
+
+void Snake::setup(){
+    int x(40);
+    int y(40);
+    mLastX=0;
+    mLastY=0;
+    mTourner=RIGHT;
+    mSnakeBody.clear();
+    sf::RectangleShape tete, coup, coup2;
+    tete.setSize(sf::Vector2f(mCase, mCase));
+    tete.setFillColor(sf::Color::White);
+    tete.setPosition(x, y);
+    snakeBloc s(tete,RIGHT);
+    coup.setSize(sf::Vector2f(mCase, mCase));
+    coup.setFillColor(sf::Color::White);
+    coup.setPosition(x-mCase, y);
+    snakeBloc s2(coup,RIGHT);
+    coup2.setSize(sf::Vector2f(mCase, mCase));
+    coup2.setFillColor(sf::Color::White);
+    coup2.setPosition(x-mCase*2, y);
+    snakeBloc s3(coup2,RIGHT);
+    mSnakeBody.push_back(s);
+    mSnakeBody.push_back(s2);
+    mSnakeBody.push_back(s3);
+    mSize=3;
+    mScore=0;
+}
+
 
 void Snake::drawSnake(){
     for (snakeBloc s : mSnakeBody) {
@@ -40,16 +70,23 @@ void Snake::drawSnake(){
     }
     mText.setString(std::to_string(mScore));
     mWin.draw(mText);
+    if(mOpacite>0){
+        mDeath.setFillColor(sf::Color(255,0,0,mOpacite));
+        mOpacite -= 2;
+    }
+    mWin.draw(mDeath);
 };
 
 const bool Snake::onCadriage() const{
     return (int)snakeHead.r.getPosition().x % 20 == 0 && (int)snakeHead.r.getPosition().y % 20 == 0;
 }
 
-void Snake::move(Food& plate){
+const bool Snake::move(Food& plate){
+    
+    bool vivant=true;
     
     for (unsigned i = mSize-1; i > 0; i--) {
-        if(onCadriage()){
+        if(onCadriage() && snakeHead.d != STOP){
             mSnakeBody[i].d = mSnakeBody[i-1].d;
         }
         switch (mSnakeBody[i].d) {
@@ -70,7 +107,7 @@ void Snake::move(Food& plate){
         }
     }
     
-    if(onCadriage()){
+    if(onCadriage() && snakeHead.d != STOP){
         snakeHead.d = mTourner;
     }
     
@@ -96,6 +133,8 @@ void Snake::move(Food& plate){
             if(snakeHead.r.getPosition() == mSnakeBody[i].r.getPosition() || snakeHead.r.getPosition().x < 0 || snakeHead.r.getPosition().x > 780 || snakeHead.r.getPosition().y < 0 ||  snakeHead.r.getPosition().y > 780){
                 for (unsigned i = 0; i<mSize; i++) {
                     mSnakeBody[i].d = STOP;
+                    vivant=false;
+                    mOpacite = 200;
                 }
             }
         }
@@ -124,46 +163,14 @@ void Snake::move(Food& plate){
         mLastY = mSnakeBody[mSize-1].r.getPosition().y;
     }
     
+    return vivant;
+    
 }
 
 void Snake::setDir(const direction dir){
 
     if(snakeHead.d != STOP){
         mTourner=dir;
-    }
-    switch (mTourner) {
-        case UP:
-            if(snakeHead.d==DOWN){
-                for (unsigned i = 0; i<mSize; i++) {
-                    mSnakeBody[i].d = STOP;
-                }
-            }
-            break;
-        case DOWN:
-            if(snakeHead.d==UP){
-                for (unsigned i = 0; i<mSize; i++) {
-                    mSnakeBody[i].d = STOP;
-                }
-            }
-            break;
-        case LEFT:
-            if(snakeHead.d==RIGHT){
-                for (unsigned i = 0; i<mSize; i++) {
-                    mSnakeBody[i].d = STOP;
-                }
-            }
-            break;
-        case RIGHT:
-            if(snakeHead.d==LEFT){
-                for (unsigned i = 0; i<mSize; i++) {
-                    mSnakeBody[i].d = STOP;
-                }
-            }
-            break;
-            
-            
-        default:
-            break;
     }
 };
 
