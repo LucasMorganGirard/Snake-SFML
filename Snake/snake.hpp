@@ -15,20 +15,6 @@
 #include <SFML/Graphics.hpp>
 #include "food.hpp"
 
-typedef enum {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    STOP
-} direction;
-
-typedef struct snakeBloc {
-    snakeBloc(sf::RectangleShape rect, direction direc):r(rect),d(direc){};
-    sf::RectangleShape r;
-    direction d;
-} snakeBloc;
-
 class Snake{
 public:
     Snake(sf::RenderWindow&);
@@ -37,6 +23,8 @@ public:
     const bool move(Food&);
     void setDir(const direction);
     void setup();
+    std::vector<snakeBloc>& getBody();
+    const unsigned short getScore() const;
     
 private:
     std::vector<snakeBloc> mSnakeBody;

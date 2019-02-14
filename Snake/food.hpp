@@ -9,20 +9,36 @@
 #ifndef food_hpp
 #define food_hpp
 
-#include <stdio.h>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+typedef enum {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    STOP
+} direction;
+
+typedef struct snakeBloc {
+    snakeBloc(sf::RectangleShape rect, direction direc):r(rect),d(direc){};
+    sf::RectangleShape r;
+    direction d;
+} snakeBloc;
+
 class Food{
 public:
-    Food();
-    std::vector<sf::RectangleShape>& drawFood();
-    void setUpFood(const unsigned numberOfFood);
-    void getEaten(const unsigned);
+    Food(sf::RenderWindow&);
+    void drawFood();
+    void setUpFood(const unsigned numberOfFood, const std::vector<snakeBloc>&);
+    void getEaten(const unsigned, const std::vector<snakeBloc>&);
+    const sf::Vector2f choixPoint(const std::vector<snakeBloc>&) const;
+    const std::vector<sf::RectangleShape>& getFood() const;
     
 private:
     std::vector<sf::RectangleShape> mFood;
+    sf::RenderWindow& mWin;
 };
 
 #endif /* food_hpp */

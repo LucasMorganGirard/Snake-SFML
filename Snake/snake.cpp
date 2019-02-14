@@ -11,7 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
 #include <iostream>
-#include "food.hpp"
 
 #define snakeHead mSnakeBody[0]
 
@@ -25,6 +24,7 @@ Snake::Snake(sf::RenderWindow& win)
     }
     mText.setFont(mFont);
     mText.setCharacterSize(50);
+    mText.setPosition(10, 10);
     mText.setFillColor(sf::Color::Red);
     mText.setString(std::to_string(mScore));
     
@@ -42,6 +42,7 @@ void Snake::setup(){
     mLastX=0;
     mLastY=0;
     mTourner=RIGHT;
+    mNeedNewRect=false;
     mSnakeBody.clear();
     sf::RectangleShape tete, coup, coup2;
     tete.setSize(sf::Vector2f(mCase, mCase));
@@ -150,10 +151,10 @@ const bool Snake::move(Food& plate){
         mSize++;
     }
     
-    for (unsigned i = 0; i < plate.drawFood().size(); i++) {
-        if(snakeHead.r.getPosition() == plate.drawFood()[i].getPosition()){
+    for (unsigned i = 0; i < plate.getFood().size(); i++) {
+        if(snakeHead.r.getPosition() == plate.getFood()[i].getPosition()){
             mNeedNewRect=true;
-            plate.getEaten(i);
+            plate.getEaten(i, mSnakeBody);
             mScore++;
         }
     }
@@ -165,12 +166,42 @@ const bool Snake::move(Food& plate){
     
     return vivant;
     
-}
+};
 
 void Snake::setDir(const direction dir){
-
-    if(snakeHead.d != STOP){
-        mTourner=dir;
+    
+    switch (dir) {
+        case UP:
+            if(snakeHead.d != DOWN && snakeHead.d != STOP){
+                mTourner=dir;
+            }
+            break;
+        case DOWN:
+            if(snakeHead.d != UP && snakeHead.d != STOP){
+                mTourner=dir;
+            }
+            break;
+        case LEFT:
+            if(snakeHead.d != RIGHT && snakeHead.d != STOP){
+                mTourner=dir;
+            }
+            break;
+        case RIGHT:
+            if(snakeHead.d != LEFT && snakeHead.d != STOP){
+                mTourner=dir;
+            }
+            break;
+        default:
+            break;
     }
+    
 };
+
+std::vector<snakeBloc>& Snake::getBody(){
+    return mSnakeBody;
+};
+
+const unsigned short Snake::getScore() const{
+    return mScore;
+}
 

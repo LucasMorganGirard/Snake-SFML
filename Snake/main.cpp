@@ -26,10 +26,11 @@
 int main(int, char const**)
 {
     // Create the main window
+    unsigned short maxScore=0;
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window", sf::Style::None);
     Snake sss(window);
-    Food plate;
-    plate.setUpFood(2);
+    Food plate(window);
+    plate.setUpFood(2, sss.getBody());
     sf::VertexArray grille;
     grille.setPrimitiveType(sf::Lines);
     for(unsigned i = 20; i < 800; i+=20){
@@ -44,6 +45,12 @@ int main(int, char const**)
         return EXIT_FAILURE;
     }
     sf::Text text;
+    sf::Text maxScoreText;
+    maxScoreText.setFont(font);
+    maxScoreText.setCharacterSize(50);
+    maxScoreText.setFillColor(sf::Color::Red);
+    maxScoreText.setPosition(10, 60);
+    maxScoreText.setString(std::to_string(maxScore));
     text.setFont(font);
     text.setCharacterSize(50);
     text.setFillColor(sf::Color::Red);
@@ -71,15 +78,16 @@ int main(int, char const**)
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 window.close();
             }
-            
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up) {
-                sss.setDir(UP);
-            }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down) {
-                sss.setDir(DOWN);
-            }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
-                sss.setDir(LEFT);
-            }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
-                sss.setDir(RIGHT);
+            if(!pause){
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up) {
+                    sss.setDir(UP);
+                }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down) {
+                    sss.setDir(DOWN);
+                }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
+                    sss.setDir(LEFT);
+                }else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
+                    sss.setDir(RIGHT);
+                }
             }
             
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) {
@@ -101,9 +109,12 @@ int main(int, char const**)
         }else{
             window.draw(text);
         }
-        for (sf::RectangleShape r1 : plate.drawFood()) {
-            window.draw(r1);
+        if(sss.getScore() > maxScore){
+            maxScore = sss.getScore();
+            maxScoreText.setString(std::to_string(maxScore));
         }
+        window.draw(maxScoreText);
+        plate.drawFood();
         sss.drawSnake();
         window.draw(grille);
         // Update the window
