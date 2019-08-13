@@ -3,7 +3,7 @@
 //  Snake
 //
 //  Created by GIRARD Lucas on 08/02/2019.
-//  Copyright © 2019 GIRARD Lucas. All rights reserved.
+//  oh god i realy need to add comments
 //
 
 #include "snake.hpp"
